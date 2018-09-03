@@ -1,0 +1,6 @@
+Django==2.1.1
+djangorestframework==3.8.2
+pylint==2.1.1
+pylint-django==2.0.2
+pylint-plugin-utils==0.4
+requests==2.19.1

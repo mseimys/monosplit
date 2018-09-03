@@ -18,8 +18,13 @@ class NotebookSerializer(serializers.HyperlinkedModelSerializer):
 
 
 class NotebookViewSet(viewsets.ModelViewSet):
-    queryset = Notebook.objects.all()
     serializer_class = NotebookSerializer
+
+    def get_queryset(self):
+        owner_id = self.request.META.get('HTTP_OWNER_ID')
+        if owner_id:
+            return Notebook.objects.filter(owner=owner_id)
+        return Notebook.objects.none()
 
 
 class NoteSerializer(serializers.HyperlinkedModelSerializer):

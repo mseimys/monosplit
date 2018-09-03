@@ -27,7 +27,7 @@ DEBUG = True
 
 INSTANCE_NAME = 'CORE'
 ALLOWED_HOSTS = ['core.localhost', 'microservice.localhost']
-
+AUTH_USER_MODEL = 'dashboard.User'
 
 # Application definition
 
@@ -38,7 +38,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'dashboard'
+    'dashboard',
 ]
 
 MIDDLEWARE = [
@@ -120,3 +120,5 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/2.1/howto/static-files/
 
 STATIC_URL = '/static/'
+
+NOTEBOOK_URL = 'http://microservice.localhost/'

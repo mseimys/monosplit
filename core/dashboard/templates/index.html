@@ -14,16 +14,22 @@
 <body>
     <h1><pre>{{ instance }}</pre> Dashboard</h1>
     {% if logged_in %}
-        Hello {{ user.username }}! You are logged in!
+        Hello {{ user.email }}! You are logged in!
         <a href="/logout">LOGOUT</a>
     {% else %}
         <a href="/login">LOGIN</a>
     {% endif %}
+    <hr>
+    {% for notebook in user.notebooks %}
+    <div>
+        <h3>{{ notebook.name }}</h3>
+        <ul>
+            {% for note in notebook.notes %}
+                <li>{{ note }}</li>
+            {% endfor %}
+        </ul>
+    </div>
+    {% endfor %}
     <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
-    <script>
-    $(document).ready(function(){
-        alert('hey')
-    });
-    </script>
 </body>
 </html>

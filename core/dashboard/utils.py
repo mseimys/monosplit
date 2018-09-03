@@ -1,5 +1,6 @@
-from django.contrib.auth.models import User
 from django.db import IntegrityError
+
+from dashboard.models import User
 
 
 ADMIN_USERNAME = 'admin'
