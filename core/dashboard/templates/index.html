@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Core Dashboard</title>
+    <style>
+        body {
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <h1><pre>{{ instance }}</pre> Dashboard</h1>
+    {% if logged_in %}
+        Hello {{ user.username }}! You are logged in!
+        <a href="/logout">LOGOUT</a>
+    {% else %}
+        <a href="/login">LOGIN</a>
+    {% endif %}
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+    <script>
+    $(document).ready(function(){
+        alert('hey')
+    });
+    </script>
+</body>
+</html>
