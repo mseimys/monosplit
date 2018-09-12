@@ -1,18 +1,21 @@
+from collections import namedtuple
 import requests
 from django.conf import settings
 
-class Notebook(object):
-    def __init__(self, data):
-        self.name = data.get('name')
-        self.owner = data.get('uuid')
-        self._notes = data.get('notes', [])
+NotebookData = namedtuple('Notebook', ['name', 'notes', 'owner', 'url'])
 
-    @property
-    def notes(self):
-        return self._notes
+NOTEBOOK_ROOT = settings.NOTEBOOK_URL.rstrip('/') + '/api/notebooks'
 
-def get_notebooks(uuid):
-    headers = {'OWNER-ID': str(uuid)}
-    url = settings.NOTEBOOK_URL.rstrip('/') + '/api/notebooks'
-    response = requests.get(url, headers=headers)
-    return [Notebook(data) for data in response.json()]
+def headers(owner_uuid):
+    return {'OWNER-ID': str(owner_uuid)}
+
+class Notebook(NotebookData):
+    @staticmethod
+    def get_notebooks(owner_uuid):
+        response = requests.get(NOTEBOOK_ROOT, headers=headers(owner_uuid))
+        return [Notebook(**data) for data in response.json()]
+
+    def add_note(self, note):
+        response = requests.post(self.url + 'notes/', headers=headers(self.owner), json={'text': note})
+        print('Sending `{}` to {}'.format(note, self.url))
+        return response

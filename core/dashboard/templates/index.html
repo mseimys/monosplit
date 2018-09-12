@@ -23,13 +23,33 @@
     {% for notebook in user.notebooks %}
     <div>
         <h3>{{ notebook.name }}</h3>
+        <div><small>{{ notebook.url }}</small></div>
         <ul>
             {% for note in notebook.notes %}
-                <li>{{ note }}</li>
+                <li>
+                    {{ note }}
+                    <button class="delete-note" data-url="{{ notebook.url }}" data-index="{{ forloop.counter0 }}">X</button>
+                </li>
             {% endfor %}
         </ul>
     </div>
+    <div>
+        <input data-url="{{ notebook.url }}"><button class="add-note">ADD NOTE</button>
+    </div>
     {% endfor %}
+    <!-- Use React they said... drowning in boilerplate code -->
     <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+    <script>
+        $(document).ready(function(){
+            $('button.delete-note').on('click', function(){
+                console.log('Deleting', $(this).data('url'));
+            });
+            $('button.add-note').on('click', function(){
+                var input = $(this).prev('input');
+                console.log('Adding', input.data('url'), input.val());
+                input.val('');
+            });
+        });
+    </script>
 </body>
 </html>
